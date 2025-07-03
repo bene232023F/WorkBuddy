@@ -1,6 +1,8 @@
 package edu.vt.mobiledev.workbuddy.ui.tasks
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import edu.vt.mobiledev.workbuddy.data.Task
@@ -9,7 +11,7 @@ import kotlinx.coroutines.launch
 
 // ViewModel for TasksFragment (task management screen).
 class TasksViewModel(
-    private val repository: TaskRepository = TaskRepository.getInstance()
+    private val repository: TaskRepository
 ) : ViewModel() {
     // LiveData list of all tasks
     val tasks = repository.getAllTasks().asLiveData()
@@ -33,5 +35,15 @@ class TasksViewModel(
         viewModelScope.launch {
             repository.updateTask(task.copy(pomodoroCount = task.pomodoroCount + 1))
         }
+    }
+}
+
+class TasksViewModelFactory(private val ctx: Context)
+    : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        @Suppress("UNCHECKED_CAST")
+        return TasksViewModel(
+            TaskRepository.getInstance(ctx)
+        ) as T
     }
 }

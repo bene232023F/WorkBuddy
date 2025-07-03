@@ -6,23 +6,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".ui.stats.StatsFragment">
+    tools:context="edu.vt.mobiledev.workbuddy.ui.stats.StatsFragment">
 
+    <!-- Daily stats header -->
     <TextView
         android:id="@+id/tv_daily_stats"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Today: 0 Pomodoros"
+        android:text="@string/daily_stats"
         android:textSize="18sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
+    <!-- Weekly stats header -->
     <TextView
         android:id="@+id/tv_weekly_stats"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="This Week: 0 Pomodoros"
+        android:text="@string/weekly_stats"
         android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@id/tv_daily_stats"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +46,7 @@
         android:id="@+id/tv_quote"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="“Focus on being productive instead of busy.”"
+        android:text="@string/motivational_quote"
         android:textStyle="italic"
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@id/chart_container"

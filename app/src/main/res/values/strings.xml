@@ -1,3 +1,26 @@
 <resources>
+    <!-- App name -->
     <string name="app_name">WorkBuddy</string>
+
+    <!-- HomeFragment -->
+    <string name="default_timer">25:00</string>
+    <string name="current_task_label">Current Task: —</string>
+    <string name="button_start">Start</string>
+    <string name="button_pause">Pause</string>
+    <string name="button_reset">Reset</string>
+
+    <!-- StatsFragment -->
+    <string name="daily_stats">Today: %1$d Pomodoros</string>
+    <string name="weekly_stats">This Week: %1$d Pomodoros</string>
+    <string name="motivational_quote">“Focus on being productive instead of busy.”</string>
+
+    <!-- TasksFragment -->
+    <string name="empty_tasks_message">No tasks yet! Tap the + button to add one.</string>
+
+    <!-- Task item placeholders -->
+    <string name="task_title_placeholder">Task Title</string>
+    <string name="task_subtitle_placeholder">Due in 2h</string>
+
+    <!-- Dialog / FAB -->
+    <string name="add_task">Add Task</string>
 </resources>

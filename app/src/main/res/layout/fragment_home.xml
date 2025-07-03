@@ -5,15 +5,14 @@
     android:id="@+id/home_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.vt.mobiledev.workbuddy.HomeFragment">
+    tools:context="edu.vt.mobiledev.workbuddy.ui.home.HomeFragment">
 
     <!-- Timer display -->
     <TextView
         android:id="@+id/tv_timer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="25:00"
-        android:textSize="48sp"
+        android:text="@string/default_timer"        android:textSize="48sp"
         android:textStyle="bold"
         android:gravity="center"
         app:layout_constraintTop_toTopOf="parent"
@@ -26,7 +25,7 @@
         android:id="@+id/tv_current_task"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Current Task: —"
+        android:text="@string/current_task_label"
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/tv_timer"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,24 +44,27 @@
         android:layout_marginTop="32dp"
         android:gravity="center">
 
+        <!-- Start button -->
         <Button
             android:id="@+id/btn_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Start"/>
+            android:text="@string/button_start"/>
 
+        <!-- Pause button -->
         <Button
             android:id="@+id/btn_pause"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pause"
+            android:text="@string/button_pause"
             android:layout_marginStart="16dp"/>
 
+        <!-- Reset button -->
         <Button
             android:id="@+id/btn_reset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reset"
+            android:text="@string/button_reset"
             android:layout_marginStart="16dp"/>
     </LinearLayout>
 

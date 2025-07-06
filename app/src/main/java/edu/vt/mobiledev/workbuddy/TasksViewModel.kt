@@ -16,13 +16,6 @@ class TasksViewModel(
     // LiveData list of all tasks
     val tasks = repository.getAllTasks().asLiveData()
 
-    // Add a new task
-    fun addTask(title: String) {
-        viewModelScope.launch {
-            repository.insertTask(Task(title = title))
-        }
-    }
-
     // Toggle completion status
     fun toggleCompleted(task: Task) {
         viewModelScope.launch {
@@ -30,10 +23,10 @@ class TasksViewModel(
         }
     }
 
-    // Increment pomodoro count for a task
-    fun incrementPomodoro(task: Task) {
+    // Delete a task from the repository
+    fun deleteTask(task: Task) {
         viewModelScope.launch {
-            repository.updateTask(task.copy(pomodoroCount = task.pomodoroCount + 1))
+            repository.deleteTask(task)
         }
     }
 }

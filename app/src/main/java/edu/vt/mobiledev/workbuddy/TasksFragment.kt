@@ -5,6 +5,8 @@ import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -22,7 +24,7 @@ class TasksFragment : Fragment(R.layout.fragment_tasks) {
         val empty = view.findViewById<TextView>(R.id.tv_empty)
         val fab = view.findViewById<FloatingActionButton>(R.id.fab_add_task)
 
-        var adapter = TasksAdapter { task ->
+        val adapter = TasksAdapter { task ->
             tasksVM.toggleCompleted(task)
         }
         rv.adapter = adapter
@@ -41,7 +43,36 @@ class TasksFragment : Fragment(R.layout.fragment_tasks) {
         }
 
         fab.setOnClickListener {
-            // show add-task dialog
+            findNavController().navigate(R.id.addTaskDialog)
+        }
+
+        // Create the swipe callback
+        val swipeToDelete = object : ItemTouchHelper.SimpleCallback(
+            0,
+            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ) = false
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                // Guard against invalid positions
+                val pos = viewHolder.adapterPosition
+                if (pos == RecyclerView.NO_POSITION) return
+
+                val task = adapter.currentList[pos]
+                tasksVM.deleteTask(task)
+            }
+        }
+
+        // Attach it to the RecyclerView
+        ItemTouchHelper(swipeToDelete).attachToRecyclerView(rv)
+
+        // Observe tasks and submitList as before
+        tasksVM.tasks.observe(viewLifecycleOwner) { list ->
+            adapter.submitList(list)
         }
     }
 }

@@ -4,14 +4,29 @@
 
     <!-- HomeFragment -->
     <string name="default_timer">25:00</string>
-    <string name="current_task_label">Current Task: —</string>
+    <string name="current_task_label">Current Task: %1$s</string>
     <string name="button_start">Start</string>
     <string name="button_pause">Pause</string>
     <string name="button_reset">Reset</string>
+    <string name="session_length_label">Session length</string>
+    <string-array name="pomodoro_lengths">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+        <item>30</item>
+        <item>35</item>
+        <item>40</item>
+        <item>45</item>
+        <item>50</item>
+        <item>55</item>
+        <item>60</item>
+    </string-array>
 
     <!-- StatsFragment -->
-    <string name="daily_stats">Today: %1$d Pomodoros</string>
-    <string name="weekly_stats">This Week: %1$d Pomodoros</string>
+    <string name="daily_pomodoros">Today: %1$d Pomodoros</string>
+    <string name="weekly_pomodoros">This week: %1$d Pomodoros</string>
     <string name="motivational_quote">“Focus on being productive instead of busy.”</string>
 
     <!-- TasksFragment -->
@@ -23,4 +38,16 @@
 
     <!-- Dialog / FAB -->
     <string name="add_task">Add Task</string>
+    <string name="due_time_hint">Due in (hrs)</string>
+    <string name="error_empty_title">Please enter a valid title</string>
+    <string name="error_invalid_due">Please enter a valid number</string>
+    <plurals name="due_in_hours">
+        <item quantity="one">Due in %d hour</item>
+        <item quantity="other">Due in %d hours</item>
+    </plurals>
+    <plurals name="due_in_minutes">
+        <item quantity="one">Due in %d minute</item>
+        <item quantity="other">Due in %d minutes</item>
+    </plurals>
+
 </resources>

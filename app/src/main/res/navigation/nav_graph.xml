@@ -22,4 +22,9 @@
         android:label="Stats"
         tools:layout="@layout/fragment_stats" />
 
+    <dialog
+        android:id="@+id/addTaskDialog"
+        android:name="edu.vt.mobiledev.workbuddy.ui.tasks.AddTaskDialog"
+        android:label="@string/add_task"/>
+
 </navigation>

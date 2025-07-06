@@ -10,5 +10,6 @@ data class Task(
     val title: String,
     val isCompleted: Boolean = false,
     val pomodoroCount: Int = 0,
-    val createdAt: Long = System.currentTimeMillis()
+    val createdAt: Long = System.currentTimeMillis(),
+    val dueAt: Long = System.currentTimeMillis()
 )

@@ -31,11 +31,13 @@ class TasksViewModel(
     }
 }
 
+// Factory to create a TasksViewModel and supply it with the required TaskRepository
 class TasksViewModelFactory(private val ctx: Context)
     : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         @Suppress("UNCHECKED_CAST")
         return TasksViewModel(
+            // Obtain the singleton repository instance using the application context
             TaskRepository.getInstance(ctx)
         ) as T
     }

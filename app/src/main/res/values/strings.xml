@@ -27,14 +27,20 @@
     <!-- StatsFragment -->
     <string name="daily_pomodoros">Today: %1$d Pomodoros</string>
     <string name="weekly_pomodoros">This week: %1$d Pomodoros</string>
-    <string name="motivational_quote">“Focus on being productive instead of busy.”</string>
+    <string-array name="motivational_quote">
+        <item>“Focus on being productive instead of busy.”</item>
+        <item>“You don’t have to see the whole staircase, just take the first step.”</item>
+        <item>“Little by little, one travels far.”</item>
+        <item>“Success is the sum of small efforts repeated day in and day out.”</item>
+        <item>“Don’t watch the clock; do what it does. Keep going.”</item>
+    </string-array>
 
     <!-- TasksFragment -->
     <string name="empty_tasks_message">No tasks yet! Tap the + button to add one.</string>
 
     <!-- Task item placeholders -->
     <string name="task_title_placeholder">Task Title</string>
-    <string name="task_subtitle_placeholder">Due in 2h</string>
+    <string name="task_subtitle_placeholder">Due in --</string>
 
     <!-- Dialog / FAB -->
     <string name="add_task">Add Task</string>

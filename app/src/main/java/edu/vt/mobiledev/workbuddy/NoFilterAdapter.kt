@@ -5,27 +5,27 @@ import android.widget.ArrayAdapter
 import android.widget.Filter
 import androidx.annotation.LayoutRes
 
+// A simple ArrayAdapter that disables filtering so the dropdown always shows all items.
 class NoFilterAdapter(
     ctx: Context,
     @LayoutRes itemLayout: Int,
     private val data: Array<String>
 ) : ArrayAdapter<String>(ctx, itemLayout, data) {
 
-    // Always return our custom Filter instead of the default one
+    // Override getFilter() to supply our own no-op Filter
     override fun getFilter(): Filter = object : Filter() {
 
-        // Runs on a background thread; ignore the constraint and return the full array
+        // Called on a background thread. Ignores any constraint and returns the full data set.
         override fun performFiltering(constraint: CharSequence?): FilterResults {
             return FilterResults().apply {
-                values = data      // supply all items
-                count  = data.size // report full size
+                values = data      // provide all items
+                count  = data.size // with full count
             }
         }
 
-        // Runs on the UI thread; notify the adapter that data didn’t actually change
+        // Called on the UI thread. Since the data never actually changes, just notify.
         override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
             notifyDataSetChanged()
         }
     }
 }
-

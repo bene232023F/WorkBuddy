@@ -9,47 +9,71 @@ import edu.vt.mobiledev.workbuddy.PomodoroSession
 import kotlinx.coroutines.flow.Flow
 
 /**
- * Data Access Object for Task entities.
+ * DAO for managing Task entities in the database.
  */
 @Dao
 interface TaskDao {
     /**
-     * Observe all tasks, ordered by due time descending.
+     * Streams all tasks, ordered by their due timestamp ascending.
+     *
+     * @return a Flow emitting the current list of all Task objects.
      */
     @Query("SELECT * FROM tasks ORDER BY dueAt ASC")
     fun getAllTasks(): Flow<List<Task>>
 
     /**
-     * Insert a new Task. Returns the new row ID.
+     * Inserts a new Task into the database.
+     *
+     * @param task the Task to insert.
+     * @return the newly generated row ID for the inserted Task.
      */
     @Insert
     suspend fun insert(task: Task): Long
 
     /**
-     * Update an existing Task.
+     * Updates an existing Task in the database.
+     *
+     * @param task the Task with updated fields.
      */
     @Update
     suspend fun update(task: Task)
 
     /**
-     * Delete a Task.
+     * Deletes a Task from the database.
+     *
+     * @param task the Task to remove.
+     * @return the number of rows deleted (should be 1 if successful).
      */
     @Delete
     suspend fun delete(task: Task): Int
 
-    /** For debugging only: total of all pomodoroCount, no WHERE clause */
+    /**
+     * (Debug) Returns the sum of all pomodoroCounts across every Task.
+     *
+     * @return a Flow emitting the total, or null if no tasks exist.
+     */
     @Query("SELECT SUM(pomodoroCount) FROM tasks")
     fun rawTotalPomodoros(): Flow<Int?>
 }
 
+/**
+ * DAO for managing PomodoroSession entities in the database.
+ */
 @Dao
 interface PomodoroSessionDao {
+    /**
+     * Inserts a new PomodoroSession record, indicating one completed session.
+     *
+     * @param session the PomodoroSession to insert.
+     */
     @Insert
     suspend fun insert(session: PomodoroSession)
 
     /**
-     * Count total pomodoro sessions logged since the given timestamp.
-     * Returns null if there are no records, so caller should default to 0.
+     * Counts how many PomodoroSession records have been logged since.
+     *
+     * @param since the earliest timestamp (inclusive) to count sessions from.
+     * @return a Flow emitting the count of sessions; will be 0 if none match.
      */
     @Query("SELECT COUNT(*) FROM pomodoro_sessions WHERE completedAt >= :since")
     fun countSessionsSince(since: Long): Flow<Int>

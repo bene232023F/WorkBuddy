@@ -10,69 +10,94 @@ import edu.vt.mobiledev.workbuddy.NoFilterAdapter
 import edu.vt.mobiledev.workbuddy.R
 import edu.vt.mobiledev.workbuddy.databinding.FragmentHomeBinding
 
+/**
+ * Fragment displaying the Pomodoro timer UI.
+ *
+ * Shows a dropdown to pick interval length.
+ * Displays the countdown timer.
+ * Shows the next task title.
+ * Provides Start / Pause / Reset controls.
+ */
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
+    // Backing property for view binding
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
+    // Obtain HomeViewModel via factory, scoped to this Fragment
     private val homeVM: HomeViewModel by viewModels {
         HomeViewModelFactory(requireContext())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        // Initialize view binding
         _binding = FragmentHomeBinding.bind(view)
 
-        // Observe timer text
-        homeVM.timerText.observe(viewLifecycleOwner) {
-            binding.tvTimer.text = it
+        // Update timer display whenever HomeViewModel emits new formatted text
+        homeVM.timerText.observe(viewLifecycleOwner) { formatted ->
+            binding.tvTimer.text = formatted
         }
 
-        // Observe current task name
-        homeVM.currentTaskName.observe(viewLifecycleOwner) {
-            binding.tvCurrentTask.text =
-                getString(R.string.current_task_label, it)
-        }
-
-        // Observe next task name
-        homeVM.nextTaskName.observe(viewLifecycleOwner) { name ->
+        // Update current-task label when HomeViewModel updates the task name
+        homeVM.currentTaskName.observe(viewLifecycleOwner) { name ->
             binding.tvCurrentTask.text =
                 getString(R.string.current_task_label, name)
         }
 
-        // Prepare the dropdown data + adapter once
-        val items = resources.getStringArray(R.array.pomodoro_lengths)
-        val adapter = NoFilterAdapter(requireContext(),
-            android.R.layout.simple_dropdown_item_1line,
-            items)
+        // Also update to nextTaskName if underlying nextTask changes
+        homeVM.nextTaskName.observe(viewLifecycleOwner) { nextName ->
+            binding.tvCurrentTask.text =
+                getString(R.string.current_task_label, nextName)
+        }
 
-        // Wire up the AutoCompleteTextView
+        // Prepare the dropdown menu data and adapter (no filtering)
+        val items = resources.getStringArray(R.array.pomodoro_lengths)
+        val adapter = NoFilterAdapter(
+            requireContext(),
+            android.R.layout.simple_dropdown_item_1line,
+            items
+        )
+
+        // Wire up the AutoCompleteTextView for session length selection
         binding.actvSessionLength.apply {
-            threshold = 0
-            setAdapter(adapter)
-            setOnTouchListener { v, event ->
+            threshold = 0                        // show dropdown immediately on touch
+            setAdapter(adapter)                 // supply no-filter adapter
+            setOnTouchListener { view, event ->
+                // When user lifts finger, show full dropdown
                 if (event.action == MotionEvent.ACTION_UP) {
-                    (v as AutoCompleteTextView).showDropDown()
+                    (view as AutoCompleteTextView).showDropDown()
                 }
                 false
             }
-
-            // When the user picks a time, update the VM
-            setOnItemClickListener { parent, _, pos, _ ->
-                val mins = parent.getItemAtPosition(pos).toString().toLongOrNull() ?: return@setOnItemClickListener
+            setOnItemClickListener { parent, _, position, _ ->
+                // Parse selected minutes and inform the ViewModel
+                val mins = parent
+                    .getItemAtPosition(position)
+                    .toString()
+                    .toLongOrNull() ?: return@setOnItemClickListener
                 homeVM.setPomodoroLength(mins)
             }
         }
 
-        // Button wiring
+        // Hook up control buttons to ViewModel actions
         binding.btnStart.setOnClickListener {
-            homeVM.nextTask.value?.let { homeVM.startTimerForTask(it) }
+            // Only start if there’s a next unfinished task
+            homeVM.nextTask.value?.let { task ->
+                homeVM.startTimerForTask(task)
+            }
         }
-        binding.btnPause.setOnClickListener { homeVM.pauseTimer() }
-        binding.btnReset.setOnClickListener { homeVM.resetTimer() }
+        binding.btnPause.setOnClickListener {
+            homeVM.pauseTimer()
+        }
+        binding.btnReset.setOnClickListener {
+            homeVM.resetTimer()
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        // Clear binding reference to avoid memory leaks
         _binding = null
     }
 }

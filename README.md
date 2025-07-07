@@ -38,15 +38,38 @@ Perfect for students, developers, or anyone who wants to structure their workday
 - Add new tasks with a title and due time
 - Mark tasks complete via checkbox
 - Swipe left/right to delete tasks
+  
+<img 
+  src="https://github.com/user-attachments/assets/8dbda5ef-1bdc-499c-ac3c-57136728ebfc" 
+  alt="empty tasks" 
+  width="200" 
+/>
+<img 
+  src="https://github.com/user-attachments/assets/e21adca7-e5ad-4882-af77-b34aec8f1598" 
+  alt="filled tasks" 
+  width="200" 
+/>
 
 **Pomodoro Timer**
 - Select session length (5–60 min) via dropdown
 - Start, pause, and reset timer per task
 - Automatically increments task’s Pomodoro count on completion
+     
+<img 
+  src="https://github.com/user-attachments/assets/06ef08ed-668a-4139-97b1-d3ae28302b73" 
+  alt="home" 
+  width="200" 
+/>
 
 **Statistics & Motivation**
 - View Today’s and This Week’s Pomodoro totals
 - See a random motivational quote each time
+    
+<img 
+  src="https://github.com/user-attachments/assets/17c4c8c6-5ac6-43f6-869a-dedaf659e685" 
+  alt="empty tasks" 
+  width="200" 
+/>
 
 ---
 ## 🛠️ Technology Stack
@@ -68,13 +91,19 @@ Perfect for students, developers, or anyone who wants to structure their workday
 ---  
 ## 🎥 Demo  
 
-***Demo here***
+https://github.com/user-attachments/assets/3c3f3898-e2d9-4f50-86b8-a209d9fefcab
 
 ---  
 ## 🔭 Future Development Roadmap
 - **Custom themes:** Light/dark mode toggle
+- **Reflections:** Write your thoughts about a task
 - **Notifications:** Remind when Pomodoro completes
 - **Task categories & priorities**
 - **Persistence of user settings**
 - **Statistics chart** in the stats screen
 - **Cloud sync** & account support
+
+---
+## 🤝 Contact  
+**Project Lead:** Ben Edelstein  
+**Email:** bene23@vt.edu

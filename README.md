@@ -69,7 +69,9 @@ Perfect for students, developers, or anyone who wants to structure their workday
   src="https://github.com/user-attachments/assets/17c4c8c6-5ac6-43f6-869a-dedaf659e685" 
   alt="empty tasks" 
   width="200" 
-/>
+/>  
+
+## *See issues tab for known bugs*
 
 ---
 ## 🛠️ Technology Stack
